@@ -1,28 +1,11 @@
 import "./App.css";
 import { db } from "./firebase/firebase";
-const itemRef = db.collection("ECommerce").doc("Items");
+import { v4 as uuidv4 } from "uuid";
+
 function App() {
-  itemRef
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    });
-  const dellItem = () => {
-    itemRef
-      .delete()
-      .then(() => console.log("deleted"))
-      .catch((error) => console.log("Delete Error", error));
-  };
   const addItem = (name, desc, image, price, publishDate) => {
-    itemRef
+    const addItemRef = db.collection("Items").doc(uuidv4());
+    addItemRef
       .set({
         name: name,
         description: desc,
@@ -33,19 +16,35 @@ function App() {
       .then(() => console.log("Document successfully writen"))
       .catch((error) => console.log("Error", error));
   };
+  const getData = () => {
+    db.collection("Items")
+      .get()
+      .then((querrySnapshot) => {
+        querrySnapshot.forEach((doc) => {
+          console.log(doc.id, " =>", doc.data());
+        });
+      })
+      .catch((error) => console.log("getData : ", error));
+  };
   return (
     <div className="App">
       <label>Firebase</label>
       <br />
       <button
         onClick={() => {
-          addItem("name111", "descd", "imgs", "price", "11000");
+          addItem("name112", "descd", "imgs", "price", "11000");
         }}
       >
         set data
       </button>
       <br />
-      <button onClick={() => dellItem()}>Del data</button>
+      <button
+        onClick={() => {
+          getData();
+        }}
+      >
+        get data
+      </button>
     </div>
   );
 }
