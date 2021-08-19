@@ -12,7 +12,6 @@ function App() {
   const [pDate, setPDate] = useState("");
   let idSelect = document.getElementById("select");
   const addItem = () => {
-    console.log(item);
     const addItemRef = db.collection("Items").doc(uuidv4());
     addItemRef
       .set(item)
@@ -71,18 +70,6 @@ function App() {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(
-      "Name: ",
-      name,
-      "\n Desc: ",
-      desc,
-      "\n image: ",
-      img,
-      "\n price: ",
-      price,
-      "\n pDate: ",
-      pDate
-    );
     await setItem({
       name: name,
       description: desc,
