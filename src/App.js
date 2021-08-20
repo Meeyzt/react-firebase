@@ -4,6 +4,7 @@ import Login from "./components/Auth/Login";
 import Home from "./components/Home";
 import Register from "./components/Auth/Register";
 import { AuthProvider } from "./contexts/AuthContext";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/Dashboard" component={Dashboard} />
               <Route path="/" component={Home} />
             </Switch>
           </div>
