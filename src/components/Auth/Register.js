@@ -1,19 +1,25 @@
-import React from "react";
+import { Redirect } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebase/firebase";
 
 function Register() {
+  const { currentUser, setCurrentUser } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password, confirmPassword } = e.target.elements;
     if (password.value === confirmPassword.value) {
       try {
         auth.createUserWithEmailAndPassword(email.value, password.value);
+        setCurrentUser(true);
         console.log("Successfully");
       } catch (error) {
         console.log("LOGOGO", error);
       }
     } else {
       console.log("Password not cross");
+    }
+    if (currentUser) {
+      return <Redirect to="/dashboard" />;
     }
   };
   return (
