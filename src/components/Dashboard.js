@@ -12,7 +12,7 @@ function Dashboard() {
     <>
       <h1>Welcome</h1>
       <p>This is the dashboard, if you can see this you're logged in.</p>
-      <button onClick={() => auth().signOut()}>SignOut</button>
+      <button onClick={() => auth.signOut()}>SignOut</button>
     </>
   );
 }
